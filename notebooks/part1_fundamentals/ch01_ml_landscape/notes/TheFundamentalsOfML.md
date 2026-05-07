@@ -1,5 +1,4 @@
-# Part I. The Fundamentals of
-Machine Learning
+# Part I. The Fundamentals of Machine Learning
 
 ## What is Machine Learning?
 
