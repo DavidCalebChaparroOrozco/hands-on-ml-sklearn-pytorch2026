@@ -143,3 +143,21 @@ Same model, different test sets:
 
 ---
 
+## Model Deployment
+
+From Training to Production
+
+### **1. Train the model:** In the development environment
+
+### **2. Serialize:** Convert to bytes that can be stored on disk
+
+### **3. Move:** Move the model to the production server
+
+### **4. Load and predict:** Deserialize and use for inference
+
+### Why does standard pickle fail?
+
+- **Functions within functions:** Pickle cannot serialize closures
+- **Lambdas:** Anonymous functions cause errors
+- **Dynamic objects:** Created at runtime, they are not serializable
+- **Complex pipelines:** They fail with custom transformations
