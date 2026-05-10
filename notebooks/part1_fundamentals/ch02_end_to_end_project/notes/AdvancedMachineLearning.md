@@ -161,3 +161,4 @@ From Training to Production
 - **Lambdas:** Anonymous functions cause errors
 - **Dynamic objects:** Created at runtime, they are not serializable
 - **Complex pipelines:** They fail with custom transformations
+
