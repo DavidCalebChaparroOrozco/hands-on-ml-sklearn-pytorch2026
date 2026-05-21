@@ -119,7 +119,7 @@ plt.title("Example of a Multimodal Distribution (Two Peaks)")
 plt.show()
 ```
 
-![alt text](ExampleMultimodalDistribution.png)
+![alt text](/notebooks/part1_fundamentals/ch02_end_to_end_project/images/ExampleMultimodalDistribution.png)
 
 ---
 
@@ -291,7 +291,7 @@ ax2.legend()
 plt.show()
 ```
 
-![alt text](HousingMedianAge.png)
+![alt text](/notebooks/part1_fundamentals/ch02_end_to_end_project/images/HousingMedianAge.png)
 
 ---
 
