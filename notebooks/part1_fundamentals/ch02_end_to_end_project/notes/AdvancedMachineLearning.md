@@ -160,4 +160,4 @@ From Training to Production
 - **Functions within functions:** Pickle cannot serialize closures
 - **Lambdas:** Anonymous functions cause errors
 - **Dynamic objects:** Created at runtime, they are not serializable
-- **Complex pipelines:** They fail with custom transformations 
+- **Complex pipelines:** They fail with custom transformations
