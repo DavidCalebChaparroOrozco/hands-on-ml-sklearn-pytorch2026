@@ -37,3 +37,29 @@
 
 ---
 
+### Visual Exploration
+What the Data Reveals at First Glance
+
+**Key Observations:**
+- **NaN:** `total_bedrooms` contains missing values
+- **Scaling:** Attributes with highly heterogeneous ranges require scaling
+- **Cap:** `median_house_value` capped at $500,000 (affects the model)
+
+---
+
+### 02. Training / Test Split
+**Before looking at the data, split the test**
+
+> **DATA SNOOPING BIAS:** Bias that appears when observing the test set during development: the brain learns patterns and chooses models that fit that test, inflating apparent performance.
+
+- **Random Shuffle:** Mixed score pool → 80/20 split.
+  - ✅ Simple and fast
+  - ⚠️ Changes with each run if the dataset is updated
+
+- **Split by ID hash:** Each row → hash → stable bucket
+  - ​​✅ Stable with dataset updates
+  - ⚠️ Requires a unique and stable identifier
+
+- **`train_test_split`:** sklearn → `random_state` fixed for replay
+  - ✅ Reproducible via `random_state`, integrated into sklearn
+  - ⚠️ Simple random, does not stratify by default.
