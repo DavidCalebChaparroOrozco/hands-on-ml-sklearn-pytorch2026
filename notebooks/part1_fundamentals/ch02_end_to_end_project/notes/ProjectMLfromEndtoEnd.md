@@ -63,3 +63,4 @@ What the Data Reveals at First Glance
 - **`train_test_split`:** sklearn → `random_state` fixed for replay
   - ✅ Reproducible via `random_state`, integrated into sklearn
   - ⚠️ Simple random, does not stratify by default.
+
