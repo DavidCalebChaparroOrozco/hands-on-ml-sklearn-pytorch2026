@@ -204,3 +204,5 @@ Compatible with Pipeline and GridSearchCV
 3. output: K new columns: "similarity to cluster i"
 
 > Captures geographic non-linearities that raw (lat, lon) cannot express for linear models.
+
+---
