@@ -206,3 +206,43 @@ Compatible with Pipeline and GridSearchCV
 > Captures geographic non-linearities that raw (lat, lon) cannot express for linear models.
 
 ---
+
+## 08. Pipeline
+**A single pipeline: raw data → prediction**
+Each step receives the output of the previous one. `fit()` chains, as does `predict()`.
+
+![alt text](../images/MLPipeline.png)
+
+> **`Pipeline([...])`:** You explicitly name each step, useful for accessing hyperparameters.
+
+> **`make_pipeline()`:** Automatic names in lowercase, more concise.
+
+---
+
+## 09. Column Transformer
+
+**A different transformation for each column type**
+DataFrame:
+- longitude
+- latitude
+- median_age
+- total_rooms
+- median_income
+- population
+- ocean_proximity
+
+### Numeric:
+`SimpleImputer(median)` → `StandardScaler`
+
+### Geographic:
+`ClusterSimilarity`
+
+### Categorical:
+`SimpleImputer(most_frequent)` → `OneHotEncoder`
+
+Final array: hstack of all forms
+
+> `make_column_transformer` and `make_column_selector` simplify the syntax and allow you to select columns by dtype.
+
+---
+
