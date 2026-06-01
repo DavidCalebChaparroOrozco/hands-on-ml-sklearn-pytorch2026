@@ -1,0 +1,17 @@
+{
+  "version": "20260531_2335",
+  "training_date": "2026-05-31T23:35:43.160558",
+  "rmse_cv": 42166.363844742744,
+  "rmse_test": 41371.21740583231,
+  "rmse_test_ci_95": [
+    39456.77336794742,
+    43607.18551495643
+  ],
+  "best_hyperparameters": {
+    "preprocessing__geo__n_clusters": 45,
+    "random_forest__max_features": 9
+  },
+  "n_features": 59,
+  "n_train_samples": 16512,
+  "serializer": "cloudpickle"
+}

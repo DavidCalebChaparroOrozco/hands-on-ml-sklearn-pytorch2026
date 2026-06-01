@@ -246,3 +246,133 @@ Final array: hstack of all forms
 
 ---
 
+## 10. Regression Models
+
+**Three Candidates, One Metric**
+We evaluate with RMSE (Root Mean Squared Error)
+
+![alt text](../images/RegressionModels.png)
+
+## 10.1 Bias-Variance Tradeoff
+
+![alt text](../images/ModelSuccessFailure.png)
+
+## 10.2 Metric
+**RMSE: How much the error is, in the units of the problem**
+
+### Approximately $47,000
+> Typical RMSE of Random Forest in California Housing
+
+1. Calculate error: prediction - actual value
+2. Square both sides (penalizes large errors)
+3. Average all errors
+4. Square root → returns to USD
+
+- Same units as the target (interpretable)
+- Penalizes large errors more than small ones
+- **Sensitive to outliers**
+
+---
+
+## 11. Cross-validation
+**A single estimate is not enough**
+k-fold splits the training into k partitions, trains k times, and averages the results.
+
+![alt text](../images/CrossValidation.png)
+
+> ### Mean: 49.728
+> ### Standard Deviation: Approximately 1.723
+
+> `cross_val_score(model, X, y, cv = 5, scoring='neg_root_mean_squared_error')`
+The mean indicates expected performance; the standard deviation, its variability.
+
+---
+
+## 12. Hyperparameters
+**Three ways to explore the search space**
+Hyperparameters are chosen (not learned from the data)
+
+### `GridSearchCV`
+Defines a discrete grid; evaluates each cell
+Cost: O (combinations x folds) explodes with many parameters
+> Few hyperparameters, bounded domain
+
+### `RandomizedSearchCV`
+Shows n combinations of continuous distributions
+Controlled cost: you choose n_iter
+> Many parameters or wide continuous ranges
+
+### `HalvingRandomSearchCV`
+Doubles resources and keeps half in each iteration
+Efficient (early discarding of weak candidates)
+> Large search space with a limited budget
+
+![alt text](../images/SearchSpaceMethods.png)
+
+---
+
+## 13. Feature Importance
+**Which variables drive the price?**
+What this tells us:
+
+1. `median_income` dominates; district income is the main predictor.
+
+2. The `INLAND` category alone outperforms the rest of `ocean_proximity`, suggesting dropping the others.
+
+3. Geographic features (clusters, latitude, longitude) contribute valuable nonlinearity.
+
+> Useful for discarding irrelevant features and simplifying the model.
+
+## 13.1 Automatic Selection
+**`SelectFromModel` lets the model choose its features**
+
+### Complete features (16 features):
+- median_income
+- longitude
+- latitude
+- housing_median_age
+- total_rooms
+- bedrooms_ratio
+- rooms_per_house
+- ocean_proximity (x5)
+- clusters (x10)
+
+### `SelectFromModel`
+- estimator: `RandomForest` (trained)
+- threshold: 'mean' (medium importance)
+- ma_features: optional
+
+### Selected (5 features)
+- median_income
+- INLAND
+- cluster_similarity_5
+- longitude
+- latitude
+
+> ### Faster:
+> Fewer columns = faster training and inference
+
+> ### More interpretable:
+> Simpler final model to explain
+
+> ### Less overfitting:
+> Noise discarded, signal preserved
+
+---
+
+## 14 Final Evaluation
+**The test set is measured only ONCE**
+After choosing the model, hyperparameters, and features with cross-validation, the test set is used and never again.
+
+### YES
+- ✅ Tune with cross-validation on the test set
+- ✅ Compare models in cross-validation
+- ✅ Evaluate tests at completion and report the results
+
+### NO
+- ✖️ Review the test during development
+- ✖️ Retune if the test is unsatisfactory
+- ✖️ Use tests for early stopping
+
+---
+
