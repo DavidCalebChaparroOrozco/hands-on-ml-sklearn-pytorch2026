@@ -105,3 +105,72 @@ Instead of asking:
 
 ---
 
+## The classifier: Our model `SGDClassifier`
+Stochastic Gradient Descent, a fast and efficient classifier.
+
+![alt text](../images/SGDClassifier.png)
+
+### One by one
+Processes instances individually, not all at once
+
+### Large datasets
+Excellent for massive volumes of data
+
+### Good for beginners
+Ideal for exploring and rapid prototyping
+
+### Online learning
+Learn in real time with new data
+
+---
+How do I know if my model is really **good**?
+Training a model is easy. **Evaluating it properly** is the hard part.
+
+- **We need metrics** to measure performance.
+- The most intuitive is _accuracy_.
+- But... **it can be very misleading!**
+
+---
+
+## Metric, the most intuitive: What is **accuracy**?
+The percentage of correct predictions in the model
+
+The formula:
+
+![alt text](../images/accuracy.png)
+
+### Practical Example
+100 images → 95 correct answers
+
+$\frac{95}{100} = 95\%$
+
+---
+
+## More Reliable Evaluation: What is Cross-Validation?
+
+### ⚠️ Problem
+If I evaluate only once, I might get lucky (good or bad) with the data I receive.
+
+### ✅ Solution
+Evaluate **multiple times** with different partitions of the data.
+
+> **The final result** = average of the 3 accuracies
+> ### $\frac{(acc_1 + acc_2 + acc_3)}{3}$
+
+---
+
+## The surprising plot twist: A model that does nothing gets 90%
+
+![alt text](../images/PlotTwist.png)
+
+---
+
+## The Mathematical Explanation: If **90%** are NOT 5, saying "not 5" to everything... **is correct 90%**
+
+![alt text](../images/DummysArtificialAccuracyTrick.png)
+
+![alt text](../images/TheUncomfortableComparison.png)
+
+![alt text](../images/UnbalancedDataset.png)
+
+![alt text](../images/WhatDidSGDLearn.png)
