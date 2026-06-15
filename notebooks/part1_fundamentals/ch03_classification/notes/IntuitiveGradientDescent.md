@@ -134,7 +134,7 @@ The **learning rate** is how far you move in each step toward the bottom.
 
 ## Final Visual Summary: How Learning Happens
 
-![alt text](../images//HowLearningHappensSummary.png)
+![alt text](../images/HowLearningHappensSummary.png)
 
 1. **Cost Function** calculates how wrong we are.
 2. **Gradient** tells us the direction to move to reduce that error.
