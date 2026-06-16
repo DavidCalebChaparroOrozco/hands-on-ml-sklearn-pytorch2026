@@ -12,7 +12,7 @@
 We use a **linear regression** problem: as **x** increases, the **y** we are predicting also increases.
 
 ### Example:
-More $square^2$ in a house → higher **price** we are predicting.
+More $\text square^2$ in a house → higher **price** we are predicting.
 
 > I can draw **n different lines** through the same points.
 
