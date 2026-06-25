@@ -214,3 +214,138 @@ When you see a confusion matrix, always read it like this:
 
 ---
 
+## Precision
+
+Of all the images the model predicted as **"3"**, what fraction were actually **3**?
+
+Precision measures how **reliable** the model's positive predictions are.
+
+### MNIST Example: "Is it a 3?"
+
+**Objective:**
+
+Build a classifier that answers:
+
+> **"Is this image a 3?"**
+
+- **Positive (Yes)** → The image is a digit **3**
+- **Negative (No)** → The image is any other digit
+
+### Example Predictions
+
+| Image | Actual Label | Prediction |
+|---------|------------|------------|
+| 3 | Yes | Yes |
+| 3 | Yes | Yes |
+| 3 | Yes | No |
+| 8 | No | Yes |
+| 1 | No | No |
+| 7 | No | Yes |
+
+For Precision, we only look at the images predicted as **"3"**:
+
+| Predicted as "3" | Actually a 3? |
+|------------------|--------------|
+| Yes | ✅ |
+| Yes | ✅ |
+| Yes | ❌ |
+| Yes | ❌ |
+
+- **True Positives (TP)** = 2
+- **False Positives (FP)** = 2
+
+### Precision Formula
+
+$Precision = \frac{TP}{TP + FP}$
+
+Substituting the values:
+
+$Precision = \frac{2}{2 + 2}$
+
+$Precision = \frac{2}{4} = 0.50 = 50\%$
+
+### Interpretation
+
+> When the model says **"It's a 3"**, it is correct about **50% of the time**.
+
+---
+
+## Accuracy Only Punishes **False Alarms**
+
+- ### It punishes: false positives. It doesn't care how many 3s **missed**. It only cares that what I'm stating is correct.
+
+- ### The cheating model: It says "3" only once, with absolute certainty, and is right → **100%** accuracy... ignoring all the other 3s.
+
+> In short: accuracy measures the **quality** of positive predictions, not the **quantity**. It's about "when I speak, am I right?", not "am I talking about everything I should?"
+
+---
+
+## Recall
+
+Of all the images that were actually **3**, how many did the model successfully identify as **"3"**?
+
+Recall measures the model's ability to **find all positive cases** and avoid missing them.
+
+### MNIST Example: "Is it a 3?"
+
+**Objective:**
+
+Build a classifier that answers:
+
+> **"Is this image a 3?"**
+
+- **Positive (Yes)** → The image is a digit **3**
+- **Negative (No)** → The image is any other digit
+
+### Example Predictions
+
+| Image | Actual Label | Prediction |
+|---------|------------|------------|
+| 3 | Yes | Yes |
+| 3 | Yes | Yes |
+| 3 | Yes | No |
+| 8 | No | Yes |
+| 1 | No | No |
+| 7 | No | Yes |
+
+For Recall, we only look at the images that are **actually 3**:
+
+| Actual 3 | Detected as 3? |
+|-----------|---------------|
+| Yes | ✅ |
+| Yes | ✅ |
+| Yes | ❌ |
+
+- **True Positives (TP)** = 2
+- **False Negatives (FN)** = 1
+
+### Recall Formula
+
+$Recall = \frac{TP}{TP + FN}$
+
+$Recall = \frac{2}{2 + 1}$
+
+$Recall = 0.67 = 66.7\%
+$
+### Interpretation
+
+> The model detected **66.7% of all actual 3s** and missed **33.3%** of them.
+
+---
+
+## Precision vs. Recall
+
+### Precision
+**Question**: Of the 3s I marked, how many were correct?
+**Penalty**: False Positives (FP)
+**Look at the matrix**: The **column** "Predicted 3"
+
+### Recall
+**Question**: Of the actual 3s, how many were correctly predicted?
+
+**Penalty**: False Negatives (FN)
+**Look at the matrix**: The **row** "Actual 3"
+
+> The flawed model: **100%** precision but terrible recall. If there were 100 3s and it detected 1 → recall **1%** _The recall details this_
+
+![alt text](../images/Precision&Recall.png)
