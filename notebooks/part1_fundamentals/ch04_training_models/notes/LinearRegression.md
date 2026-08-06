@@ -141,3 +141,82 @@ The model predicts the total value of the house is:
 $$\boxed{\hat{y} = \$280,000}$$ 
 
 How it works: The model starts with a base price of $50,000 (the bias). It then adds $2,000 per square meter and $10,000 per room. The final prediction is the sum of all these individual components.
+
+---
+
+## What is $\theta$ (theta)?
+
+These are the **model parameters**: the internal numbers that the algorithm must **find** to make accurate predictions.
+
+> Important: The model **doesn't know these numbers at the beginning**. It has to **calculate them during training**, testing until it fits the data.
+
+### Why do they matter?
+They are the values ​​that **control the model's behavior**: changing $\theta$ changes all of its predictions.
+
+![alt text](../images/Learningθ.jpg)
+
+---
+
+## Same house, different model
+
+### Model A: size is important
+$$\text{Price} = 50,000 + 10,000(size) + 2,000(rooms)$$
+$$\theta_1: \text{Size} = 10,000$$
+$$\theta_2: \text{rooms} = 2,000$$
+$$50,000 + 10,000(100) + 2,000(3)$$
+$$\hat{y} = \$1,056,000$$
+
+### Model B: number of rooms is important
+$$\text{Price} = 50,000 + 2,000(rooms) + 10,000(size)$$
+$$\theta_1: \text{Size} = 2,000$$
+$$\theta_2: \text{rooms} = 10,000$$
+$$50,000 + 2,000(100) + 10,000(3)$$
+$$\hat{y} = \$280,000$$
+
+> Same **input data**, but **radically different predictions:** $1,056,000 vs. $280,000. That's what $\theta$ are for: weighting size is not the same as weighting the number of rooms.
+
+---
+
+## $\theta_0$ The Bias (or Intercept)
+
+This is the **initial value** of the prediction, before considering the features: what the model returns when $x_1 = x_2 = ... = 0$
+
+- **House:** The price of a house with $0 m² and 0 rooms? As a concept, **it makes little sense**.
+
+- **Taxi:** The price of a 0 km trip? **It makes perfect sense:** the initial charge, the base fare.
+
+### The Secret of the Line Formula
+$$ \underbrace{y = b + mx}_{\text{The usual line}} \iff \underbrace{\hat{y} = \theta_0 + \theta_1 x}_{\text{Our model}} $$
+
+$\theta_0$ is the **height** where the line intersects the axis (it gives it the freedom to **go up or down** and better fit the data).
+
+---
+
+### Without bias: $\theta_0 = 0$
+$$\text{Price} = 2,000 (\text{Size}) = 2,000 (100) = 200,000$$
+> The line is **forced** to pass through (0, 0). For 100 $m^2$: $$200,000$ without adjustment margin
+
+---
+### With bias: $\theta_0 = \text{Free}$
+
+**Example 1:**
+$$\text{Price} = 55,000 + 2,000(\text{Size}) = 55,000 + 2,000(100) = 255,000$$
+
+**Example 2:**
+$$\text{Price} = 60,000 + 2,000(\text{Size}) = 60,000 + 2,000(100) = 260,000$$
+
+> The line can **go up or down** as a whole to better fit the data.
+
+---
+
+## The values ​​$\theta_1, \theta_2, \theta_3$
+
+$$\text{Price} = \theta_0 + \theta_1(size) + \theta_2(rooms) + \theta_3 (age)$$
+
+- Size: each m² + $2,000 = $\theta_0 = 2,000$
+- Rooms: each room + $10,000 = $\theta_1 = 10,000$
+- Age: Each year - $500 (can be negative) = $\theta_2 = -500$
+
+> **The most important idea** \theta are not the characteristics themselves, but numbers that indicate the influence of each **characteristic** on the prediction.
+
+> The model **learns** these values ​​during **training**; they are not manually assigned.
