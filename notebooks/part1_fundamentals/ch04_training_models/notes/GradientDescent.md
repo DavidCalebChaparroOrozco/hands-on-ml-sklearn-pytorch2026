@@ -1240,7 +1240,7 @@ The best choice depends on the **dataset, model, hardware, and training requirem
 ---
 
 | Method | When to use it | Main advantage | Main problem |
-|---|---|---|---|---|
+|---|---|---|---|
 | **Batch GD** | When the dataset is relatively small enough to process efficiently in full batches | Very stable and precise gradient | Each update can be expensive |
 | **Mini-Batch GD** | When training larger models or datasets, especially with GPUs/parallel hardware | Good balance between stability, speed, and hardware efficiency | Requires choosing a suitable batch size |
 | **SGD** | When the dataset is very large or when you need very frequent, low-cost updates | Low memory usage and fast updates | Very noisy and less stable convergence |
