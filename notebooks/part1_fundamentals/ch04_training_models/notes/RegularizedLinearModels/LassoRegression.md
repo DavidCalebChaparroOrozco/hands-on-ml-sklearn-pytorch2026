@@ -197,7 +197,7 @@ Regularization introduces specific behavioral traits that require careful data p
 
 ### 1. Scale Your Variables Beforehand
 
-The regularization penalty treats all coefficients \(\theta _{j}\) equally, regardless of the measurement units of their corresponding features. If you change a feature's unit, its coefficient scale changes inversely, causing Lasso to penalize the exact same underlying information differently.
+The regularization penalty treats all coefficients $(\theta _{j})$ equally, regardless of the measurement units of their corresponding features. If you change a feature's unit, its coefficient scale changes inversely, causing Lasso to penalize the exact same underlying information differently.
 For example, if you measure house size using different units, the model's weights will vary wildly:
 - Size in square meters $(m^{2}): (\theta_1 = 2.0)$
 - Size in square centimeters $(cm^{2}): (\theta_1 = 0.0002)$
