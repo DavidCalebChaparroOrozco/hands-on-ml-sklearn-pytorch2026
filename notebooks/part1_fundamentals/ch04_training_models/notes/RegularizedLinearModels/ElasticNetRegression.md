@@ -376,7 +376,7 @@ The choice depends on the data, particularly the number of predictors and how st
 
 ### 4. Lasso vs. Elastic Net — Which Is Better?
 
-Elastic Net is often preferable when predictors are highly correlated or when there are more predictors than observations (\\(p>n\\)).
+Elastic Net is often preferable when predictors are highly correlated or when there are more predictors than observations $(p>n)$.
 
 - Lasso: May select one predictor from a group of highly correlated variables and set the others to zero.
 - Elastic Net: Combines L1 and L2 regularization, making it more likely to retain multiple correlated predictors while still allowing irrelevant predictors to be eliminated.
