@@ -919,7 +919,7 @@ R² (coefficient of determination).
 - Higher R² = better performance.
 - Lower R² = worse performance.
 
-Rollback:&#x20;
+Rollback:
 
 Yes
 
@@ -967,7 +967,7 @@ With the default regression loss (`loss="squared_error"`), the monitored loss is
 
 You can also configure `scoring` to use another supported metric, including R².
 
-Rollback:&#x20;
+Rollback:
 
 No
 
@@ -991,13 +991,7 @@ The three estimators have different defaults:
 
 For `HistGradientBoostingRegressor`, `"auto"` enables Early Stopping automatically when the training dataset contains more than 10,000 samples. It can also be enabled when explicit validation data is supplied to `fit()`.
 
-By setting `early_stopping=True`, you explicitly activate it regardless of the dataset size.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://scikit-learn.org\&sz=32)
-
-scikit-learn 1.9.1 documentation+2
-
-
+By setting `early_stopping=True`, you explicitly activate it regardless of the dataset size.
 
 ### Final Comparison
 
@@ -1287,7 +1281,7 @@ How it works:
 - `min_delta=0.001`: Requires an improvement of at least 0.001 to count.
 - `restore_best_weights=True`: Restores the weights from the best-performing epoch.
 
-Rollback:&#x20;
+Rollback:
 
 Yes
 
