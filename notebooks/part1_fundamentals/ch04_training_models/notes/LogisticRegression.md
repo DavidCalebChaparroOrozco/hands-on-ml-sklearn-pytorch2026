@@ -89,11 +89,10 @@ How does it behave?
 | 2          | 0.8808 (88.08%) |
 | 5          | 0.9933 (99.33%) |
 
-[Linear Classifiers: Decision Boundaries and Logistic Regression - Interactive | Michael Brenndoerfer | Michael Brenndoerfer](https://images.openai.com/static-rsc-4/UgiJxOABrZVBPOPej7rNppnWQ8EyX9gnDHGBUesuE-ZoEGOt8w1oAMNE6rCZzxnK5ktUMxyOUNtblLcX53q2IbF6YrL1nziT44hQQw41brHnPTBn_cQaPHanhQY4BmSD67SFdOo4FJ0fQU5OZ_R5wVlJMmNtQMA-id43KTsNPkY?purpose=inline)
+![alt text](../images/SigmoidFunction.jpg)
 
-[mbrenndoerfer.com](https://mbrenndoerfer.com/writing/linear-classifiers-neural-network-foundations?utm_source=chatgpt.com)
 
-Key idea: A very negative \\(z\\) produces a probability close to 0. A value of \\(z=0\\) produces a probability of 0.5. A very positive \\(z\\) produces a probability close to 1.
+Key idea: A very negative $(z)$ produces a probability close to 0. A value of $(z=0)$ produces a probability of 0.5. A very positive $(z)$ produces a probability close to 1.
 
 ### Step 3. Decision Threshold
 
@@ -150,3 +149,237 @@ Penalizes excessively large weights to help prevent overfitting and improve gene
 
 ---
 
+## Sigmoid Function
+
+### 1. What is the sigmoid function?
+
+The sigmoid function transforms any real number, ranging from negative infinity to positive infinity, into a value strictly between 0 and 1.
+
+This makes it useful for converting a model's output (a score) into a probability-like value.
+
+S-shaped curve
+
+- The function has an S-shaped curve.
+- It changes rapidly around 0 and becomes flatter toward the extremes.
+- This flattening is called saturation.
+
+It never reaches 0 or 1
+
+The sigmoid function approaches 0 as its input approaches negative infinity and approaches 1 as its input approaches positive infinity. However, it never actually reaches either value.
+
+These limits are called horizontal asymptotes.
+
+Mathematically:
+
+$\sigma(z)=\frac{1}{1+e^{-z}}$
+
+Where:
+
+- $(z)$: The input value (any real number).
+- $(e)$: Euler's number (approximately 2.71828).
+- $(\sigma(z))$: The output of the sigmoid function.
+
+### 2. Where is the sigmoid function used?
+
+Logistic Regression
+
+Converts a linear combination of input features into a probability estimate for the positive class (class 1).
+
+Neural Networks
+
+- Used in the output layer for binary classification, where it produces a value between 0 and 1.
+- Previously common in hidden layers, but ReLU is now generally preferred.
+- Sigmoid can cause the vanishing gradient problem because its derivative becomes very small at extreme input values. This makes it difficult for earlier layers to learn effectively.
+
+LSTM / GRU Gates
+
+Acts as a soft switch that controls how much information passes through a gate.
+
+Its output ranges from 0 to 1:
+
+- 0: Blocks information.
+- 1: Allows information through.
+- 0.5: Allows approximately half of the information through.
+
+## 3. Example: Predicting whether students pass or fail
+
+We have four students. We want to predict whether each student passes $(y=1)$ or fails $(y=0)$ based on the number of hours they studied $(x)$.
+
+| Student | Hours studied (x) | Result (y) |
+| ------- | ----------------- | ---------- |
+| A       | 1                 | 0 (Fail)   |
+| B       | 2                 | 0 (Fail)   |
+| C       | 4                 | 1 (Pass)   |
+| D       | 5                 | 1 (Pass)   |
+
+Our goal is to train a logistic regression model that learns the relationship between study hours and the probability of passing.
+
+## 4. The two parameters
+
+The model learns two parameters:
+
+Weight $(w)$
+
+Controls the slope of the linear function. It determines how strongly the input variable influences the prediction.
+
+Bias $(b)$
+
+Controls the intercept. It shifts the linear function up or down and represents its value when $(x=0)$.
+
+### Step 1: Initialize the parameters
+
+Initially, we set both parameters to zero:
+
+$w=0,\qquad b=0$
+
+The model has not learned anything yet.
+
+Because both parameters are zero, the linear function produces the same output for every student:
+
+$z=0\cdot x+0=0$
+
+Consequently, every student receives the same initial probability: 0.5.
+
+### Step 2: Make predictions
+
+This is where the sigmoid function comes in.
+
+First: Calculate the linear output
+
+$z=w\cdot x+b$
+
+This is the linear component of logistic regression, also called the logit or linear score.
+
+Second: Convert the linear output into a probability
+
+$p=\sigma(z)=\frac{1}{1+e^{-z}}$
+
+The sigmoid function transforms the linear score into a value between 0 and 1.
+
+Initial predictions
+
+Using $(w=0)$ and $(b=0)$:
+
+| Student | x | y | Linear output (z) | Probability (p) |
+| ------- | - | - | ----------------- | --------------- |
+| A       | 1 | 0 | 0                 | 0.50            |
+| B       | 2 | 0 | 0                 | 0.50            |
+| C       | 4 | 1 | 0                 | 0.50            |
+| D       | 5 | 1 | 0                 | 0.50            |
+
+For every student:
+
+1. Calculate $(z=w\cdot x+b)$.
+2. Since both parameters are zero, $(z=0)$.
+3. Apply the sigmoid function: $(\sigma(0)=0.5)$.
+
+The model initially predicts a 50% probability of passing for everyone.
+
+Python implementation:
+
+```python
+import math
+
+def sigmoid(z):
+    return 1 / (1 + math.exp(-z))
+
+sigmoid(0)  # 0.5
+```
+
+### Step 3: Measure the prediction error (Log Loss)
+
+Now that we have predictions, we need to measure how far they are from the actual results.
+
+This is where Log Loss, also known as Binary Cross-Entropy, comes in.
+
+It measures how well the predicted probabilities match the actual binary labels.
+
+The Log Loss formula:
+
+$L=-[y\cdot\ln(p)+(1-y)\cdot\ln(1-p)]$
+
+Where:
+
+- $(y)$: Actual label (0 or 1).
+- $(p)$: Predicted probability of belonging to class 1.
+- $(\ln)$: Natural logarithm.
+
+How does it work?
+
+When the actual result is $(y=1)$ (Pass):
+
+$L=-\ln(p)$
+
+It penalizes predictions with low probabilities of passing.
+
+When the actual result is $(y=0)$ (Fail):
+
+$L=-\ln(1-p)$
+
+It penalizes predictions with high probabilities of passing.
+
+Examples:
+
+```python
+import math
+
+def log_loss(y, p):
+    return -(y * math.log(p) + (1 - y) * math.log(1 - p))
+
+-math.log(1)    # 0.0
+-math.log(0.1)  # 2.3026
+```
+
+A lower Log Loss means better predictions. A higher Log Loss means worse predictions.
+
+Calculate the initial loss
+
+Since all four students have a predicted probability of 0.5:
+
+For students A and B $(y=0)$:
+
+$L=-\ln(1-0.5)=0.693$
+
+For students C and D $(y=1)$:
+
+$L=-\ln(0.5)=0.693$
+
+The average loss is:
+
+$L\_{\text{avg}}=\frac{0.693+0.693+0.693+0.693}{4}$
+
+$\boxed{L\_{\text{avg}}=0.693}$
+
+This is our initial error. The model will try to minimize it during training.
+
+## 5. Why use Log Loss instead of MSE?
+
+Both Mean Squared Error (MSE) and Log Loss measure prediction errors, but they behave differently when used with logistic regression.
+
+Mean Squared Error (MSE)
+
+$MSE=\frac{1}{n}\sum\_{i=1}^{n}(y_i-p_i)^2$
+
+MSE measures the average squared difference between actual labels and predicted probabilities.
+
+However, when combined with the sigmoid function, its optimization surface can have flatter regions and gradients that become very small. This can make gradient-based optimization slower or less effective.
+
+Log Loss (Binary Cross-Entropy)
+
+$L=-\frac{1}{n}\sum\_{i=1}^{n} [y_i\ln(p_i)+(1-y_i)\ln(1-p_i)]$
+
+Log Loss is particularly well suited to probabilistic binary classification.
+
+For logistic regression, it produces a convex optimization objective (when the model is linear in its parameters). This means there are no problematic local minima: every local minimum is also a global minimum.
+
+Important distinction: Log Loss does not guarantee a unique minimum in every situation. That depends on the dataset and model.
+
+| Feature                                   | MSE                         | Log Loss                                |
+| ----------------------------------------- | --------------------------- | --------------------------------------- |
+| Measures                                  | Squared prediction error    | Probability prediction error            |
+| Main use                                  | Regression                  | Classification                          |
+| Penalizes confident incorrect predictions | Yes                         | Very strongly                           |
+| Optimization with sigmoid                 | Can have non-convex regions | Convex for standard logistic regression |
+| Common choice for logistic regression     | Less common                 | Standard choice                         |
+
+Key idea: Log Loss is preferred in logistic regression because it evaluates predicted probabilities effectively and provides a well-behaved optimization objective for learning the model's parameters.
