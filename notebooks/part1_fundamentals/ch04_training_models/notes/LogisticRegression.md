@@ -383,3 +383,118 @@ Important distinction: Log Loss does not guarantee a unique minimum in every sit
 | Common choice for logistic regression     | Less common                 | Standard choice                         |
 
 Key idea: Log Loss is preferred in logistic regression because it evaluates predicted probabilities effectively and provides a well-behaved optimization objective for learning the model's parameters.
+
+---
+
+## Gradient Descent
+
+Gradient Descent is a general optimization algorithm used in Machine Learning to find the optimal model parameters by iteratively minimizing a cost function (or loss function).
+
+Its main purpose is to adjust a model's parameters (θ), such as weights and biases, to reduce prediction errors and improve model performance.
+
+### 1. The Basic Principle: The Mountain Analogy
+
+Imagine you are lost in the mountains on a foggy day. You cannot see your surroundings, but you can feel the slope of the ground beneath your feet.
+
+To reach the bottom of the valley, you repeatedly take steps in the direction of the steepest downward slope.
+
+In Machine Learning:
+
+- The mountain: Represents the cost function.
+- Your position: Represents the current values of the model parameters.
+- The slope: Represents the gradient of the cost function.
+- The bottom of the valley: Represents the minimum value of the cost function.
+- Each step: Represents an update to the model parameters.
+
+The goal is to reach the lowest possible point, where the model's cost is minimized.
+
+### 2. The Mathematical Update Rule
+
+Gradient Descent calculates the gradient of the cost function with respect to the model parameters and updates them in the opposite direction.
+
+The mathematical formula is:
+
+$$\theta_{\text{next}} = \theta - \eta \nabla\_{\theta}J(\theta)$$
+
+Where:
+
+- θ (Theta): The vector containing the model's parameters, such as weights and biases.
+- η (Learning Rate): A hyperparameter that controls the size of each update.
+  - Too small: Training becomes very slow because the algorithm takes tiny steps.
+  - Too large: The algorithm may overshoot the minimum, oscillate, or even diverge.
+- ∇θJ(θ) (Gradient): A vector containing the partial derivatives of the cost function with respect to each model parameter. It indicates the direction of the steepest increase in cost.
+
+By subtracting the gradient, the algorithm moves toward a lower cost.
+
+### 3. The Three Main Types of Gradient Descent
+
+The three main variants differ in how much training data they use to calculate the gradient at each iteration.
+
+| Variant                           | How it works                                                                 | Advantages                                                                                                          | Disadvantages                                           |
+| --------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| Batch Gradient Descent            | Uses the entire training dataset to calculate each gradient update.          | Stable and consistent updates; converges smoothly for convex problems.                                              | Computationally expensive for large datasets.           |
+| Stochastic Gradient Descent (SGD) | Uses one randomly selected training instance per update.                     | Fast updates, low memory requirements, and noisy steps that can help escape shallow local minima or saddle regions. | Updates are noisy and may fluctuate around the minimum. |
+| Mini-batch Gradient Descent       | Uses a small subset of randomly selected training instances for each update. | Balances computational efficiency and update stability; takes advantage of GPU and TPU parallel processing.         | Requires choosing an appropriate batch size.            |
+
+### 4. Important Technical Considerations
+
+Three important factors influence how effectively Gradient Descent works.
+
+Feature Scaling
+
+When features have significantly different numerical ranges, the cost function can become elongated rather than having a balanced shape.
+
+This causes Gradient Descent to take inefficient zigzagging steps, slowing down convergence.
+
+Feature scaling techniques such as `StandardScaler` or `MinMaxScaler` from Scikit-Learn help bring features to comparable numerical ranges.
+
+Convexity
+
+A convex cost function has no local minima other than its global minimum.
+
+For example, in ordinary Linear Regression, the Mean Squared Error (MSE) cost function is convex with respect to the model parameters.
+
+This means Gradient Descent can theoretically find the global minimum, provided the optimization conditions are appropriate.
+
+However, not all Machine Learning models have convex cost functions. Neural networks, for example, typically have non-convex loss landscapes.
+
+Learning Rate Schedule
+
+A learning rate schedule gradually adjusts the learning rate during training.
+
+For example, the algorithm can start with a relatively large learning rate to make faster progress and gradually reduce it to take smaller, more precise steps.
+
+This helps reduce fluctuations near a minimum and improves convergence stability.
+
+### 5. Key Differences to Remember
+
+| Concept         | Meaning                                                                 |
+| --------------- | ----------------------------------------------------------------------- |
+| Cost Function   | Measures how wrong the model's predictions are.                         |
+| Gradient        | Indicates the direction and magnitude of the steepest increase in cost. |
+| Learning Rate   | Determines how large each parameter update is.                          |
+| Epoch           | One complete pass through the entire training dataset.                  |
+| Iteration       | One parameter update.                                                   |
+| Batch Size      | Number of training instances used to calculate one gradient update.     |
+| Convergence     | The process of approaching a stable minimum of the cost function.       |
+| Feature Scaling | Adjusting feature ranges to improve optimization efficiency.            |
+
+### 6. Example: Predicting Whether Students Pass or Fail
+
+Imagine we have four students. We want to predict whether they will pass an exam based on the number of hours they studied.
+
+| Student | Hours Studied (x) | Actual Result (y) |
+| ------- | ----------------- | ----------------- |
+| A       | 1                 | 0 (Fail)          |
+| B       | 2                 | 0 (Fail)          |
+| C       | 4                 | 1 (Pass)          |
+| D       | 5                 | 1 (Pass)          |
+
+Initially, the model makes predictions using random or initial weights and biases. Gradient Descent calculates the prediction error and adjusts these parameters to reduce the Log Loss.
+
+After several iterations, the model learns that students who study more hours are more likely to pass.
+
+Key idea: Gradient Descent repeatedly adjusts the model's weights and bias to minimize prediction errors and improve its predictions.
+
+---
+
