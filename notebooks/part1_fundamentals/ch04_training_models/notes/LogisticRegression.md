@@ -498,3 +498,97 @@ Key idea: Gradient Descent repeatedly adjusts the model's weights and bias to mi
 
 ---
 
+## The Optimizer in Practice
+
+### 1. The Optimization Cycle
+
+Logistic Regression follows an iterative process to improve its predictions. The model repeatedly performs four steps:
+
+Step 1. Predict using the sigmoid function
+
+Convert the model's linear output into a probability between 0 and 1.
+
+$$p = \sigma(w \cdot x + b)$$
+
+Step 2. Measure the error (Log Loss)
+
+Compare the predicted probability with the actual label to measure how wrong the prediction is.
+
+$$L = -[y\ln(p)+(1-y)\ln(1-p)]$$
+
+Step 3. Calculate the gradient
+
+Calculate how much each parameter (weight and bias) contributes to the loss and in which direction it should change.
+
+For a single feature, the gradient with respect to the weight is:
+
+$$\frac{\partial L}{\partial w}=(p-y)x$$
+
+For the bias:
+
+$$\frac{\partial L}{\partial b}=p-y$$
+
+For multiple training observations, these gradients are averaged across the dataset.
+
+Step 4. Update the parameters
+
+Adjust the weights and bias in the opposite direction of the gradient to reduce the loss.
+
+$$w = w - \alpha \cdot \text{gradient}$$
+
+Where:
+
+- $(w)$: Current weight.
+- $(\alpha)$: Learning rate, which controls the size of each update.
+- Gradient: Indicates how the loss changes when the parameter changes.
+
+### 2. What Is Gradient Descent?
+
+The process we performed manually is called Gradient Descent.
+
+It is an optimization algorithm that repeatedly adjusts a model's weights and bias to minimize its loss function.
+
+The easiest way to understand it is through four actions:
+
+1. Predict: Make a prediction using the current parameters.
+2. Measure: Calculate how far the prediction is from the actual result.
+3. Calculate: Determine the gradient (the direction and magnitude of the steepest increase in loss).
+4. Update: Move the parameters in the opposite direction to reduce the loss.
+
+### 3. How Does Scikit-Learn Optimize Logistic Regression?
+
+When we use Scikit-Learn's `LogisticRegression`, we don't need to implement Gradient Descent manually.
+
+By default, Scikit-Learn uses an optimization algorithm called L-BFGS (Limited-memory Broyden–Fletcher–Goldfarb–Shanno).
+
+Unlike basic Gradient Descent, L-BFGS uses information from previous iterations to approximate the curvature of the loss function (how the surface bends).
+
+This helps it choose more informed parameter updates and often converge in fewer iterations.
+
+Key difference:
+
+- Gradient Descent: Uses the gradient (slope) to determine how to update the parameters.
+- L-BFGS: Uses gradient information and an approximation of the curvature to determine more informed updates.
+
+Both methods aim to minimize the loss function by finding suitable values for the model's weights and bias.
+
+### 4. Python Implementation
+
+```python
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression()
+
+# Default configuration:
+# solver="lbfgs"
+# penalty="l2"
+```
+
+Important parameters:
+
+| Parameter        | Meaning                                                          |
+| ---------------- | ---------------------------------------------------------------- |
+| `solver="lbfgs"` | Uses the L-BFGS optimization algorithm.                          |
+| `penalty="l2"`   | Applies L2 regularization to penalize excessively large weights. |
+
+Key idea: Gradient Descent helps us understand the fundamental optimization process. Scikit-Learn uses more sophisticated optimization algorithms, such as L-BFGS, to learn the model parameters efficiently.
