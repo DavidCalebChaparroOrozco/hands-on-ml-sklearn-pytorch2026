@@ -26,3 +26,27 @@ Imagine a model designed to classify animal photos into three categories: **Cat*
 
 ---
 
+## How does it learn those weights?
+
+During training, the model iteratively adjusts its internal parameters (weights) to minimize prediction errors using two core components:
+
+- **Cost Function (Cross-Entropy):** Measures how well the model's predicted probabilities match the actual target classes. It heavily penalizes the model whenever it assigns a low probability to the true class.
+- **Optimization Algorithm (Gradient Descent):** An iterative optimization method that updates the model's weights in the direction that minimizes the Cross-Entropy cost function, gradually reducing prediction errors.
+
+> **Key Takeaway:** Softmax Regression is a multiclass classifier that computes a raw score for each category, converts those scores into probabilities using the Softmax function, and predicts the class with the highest probability.
+
+---
+
+## Mathematical Definition
+
+Given an input instance $\mathbf{x}$, the Softmax Regression model first computes a raw score $s_k(\mathbf{x})$ for each class $k$, and then estimates the probability of each class by applying the Softmax function to the scores.
+
+### Vector Form
+Each class $k$ has its own dedicated parameter vector $\boldsymbol{\theta}^{(k)}$. The score calculation mirrors linear regression:
+
+$$s_k(\mathbf{x}) = \left(\boldsymbol{\theta}^{(k)}\right)^\top \mathbf{x}$$
+
+### Expanded Form
+Written out feature by feature, the score is a weighted sum of the input features (where $x_0 = 1$ represents the bias term):
+
+$$s_k(\mathbf{x}) = \theta_0^{(k)}x_0 + \theta_1^{(k)}x_1 + \dots + \theta_n^{(k)}x_n = \sum_{i=0}^{n} \theta_i^{(k)} x_i$$
