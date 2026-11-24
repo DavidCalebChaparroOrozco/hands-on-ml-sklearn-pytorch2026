@@ -193,3 +193,4 @@ Suppose we give a model a photo of an animal:
   1. **Species:** `{Cat, Dog, Bird}` $\rightarrow$ **Cat**
   2. **Size:** `{Small, Medium, Large}` $\rightarrow$ **Small**
   3. **Indoor Pet?** `{Yes, No}` $\rightarrow$ **Yes**
+
